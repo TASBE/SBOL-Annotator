@@ -6,3 +6,4 @@ install:
   - pip install -r requirements_travis.txt
 script:
   - python3 ./tests/test_addComponent.py
+  - python3 ./tests/test_componentBuckets.py
