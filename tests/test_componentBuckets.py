@@ -107,3 +107,9 @@ def test_settingNames():
     assert device_test_context.name == 'lol'
     assert device_test.name == 'joe'
     assert device.name == 'john'
+
+
+if __name__ == '__main__':
+    test_addingPlasmidParts()
+    test_resettingModules()
+    test_settingNames()

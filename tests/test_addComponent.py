@@ -62,3 +62,9 @@ def test_illegalName():
     addComponent(doc, addedCDs, componentName, componentType, componentRole)
 
     assert len(doc.componentDefinitions) == 0
+
+
+if __name__ == '__main__':
+    test_successfulAdd()
+    test_addSame()
+    test_illegalName()
