@@ -3,6 +3,6 @@ python:
   - 3.6
 cache: pip
 install:
-  - pip3 install -r requirements_travis.txt
+  - pip install -r requirements_travis.txt
 script:
   - python3 ./tests/test_addComponent.py

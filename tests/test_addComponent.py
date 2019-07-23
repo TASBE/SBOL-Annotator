@@ -42,3 +42,17 @@ def test_addSame():
     addComponent(doc, addedCDs, componentName, componentType, componentRole)
 
     assert len(doc.componentDefinitions) == 1
+
+
+def test_illegalName():
+    doc = Document() # noqa
+    setHomespace('https://bu.edu/ben') # noqa
+    addedCDs = []
+
+    componentName = '#$%^&*'
+    componentType = 'Protein'
+    componentRole = ''
+
+    addComponent(doc, addedCDs, componentName, componentType, componentRole)
+
+    assert len(doc.componentDefinitions) == 0
