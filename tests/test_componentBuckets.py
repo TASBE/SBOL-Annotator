@@ -7,7 +7,7 @@ PARENTDIR = os.path.dirname(TESTSDIR)
 SRCDIR = os.path.join(PARENTDIR, 'src')
 sys.path.insert(0, SRCDIR)
 
-from componentbuckets import addPlasmidParts # noqa
+from componentbuckets import addPlasmidParts, resetModules, setNames # noqa
 
 
 def createTestCD():
@@ -42,7 +42,7 @@ def createModules():
     return (device_test_context, device_test, device)
 
 
-def test_addPlasmidParts():
+def test_addingPlasmidParts():
     doc = Document() # noqa
     setHomespace('https://bu.edu/ben') # noqa
     Config.setOption('sbol_compliant_uris', True) # noqa
@@ -77,3 +77,33 @@ def test_addPlasmidParts():
     assert subCD1.identity in componentDefinitions
     assert subCD2.identity in componentDefinitions
     assert subCD3.identity not in componentDefinitions
+
+
+def test_resettingModules():
+    testCD, subCD1, subCD2, subCD3 = createTestCD()
+    device_test_context, device_test, device = createModules()
+    fc = device.functionalComponents.create('TestCD_sub1')
+    fc.definition = subCD1.identity
+    fc = device.functionalComponents.create('TestCD_sub2')
+    fc.definition = subCD2.identity
+
+    resetModules(device_test_context, device_test, device)
+
+    assert len(device_test_context.functionalComponents) == 0
+    assert len(device_test.functionalComponents) == 0
+    assert len(device.functionalComponents) == 0
+
+
+def test_settingNames():
+    class TestWidget:
+        def __init__(self, name):
+            self.value = name
+
+    names = [TestWidget('bob'), TestWidget('joe'), TestWidget('john')]
+    device_test_context, device_test, device = createModules()
+
+    setNames(device_test_context, device_test, device, names)
+
+    assert device_test_context.name == 'lol'
+    assert device_test.name == 'joe'
+    assert device.name == 'john'
