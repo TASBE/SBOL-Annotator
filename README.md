@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/TASBE/SBOL-Annotator.svg?branch=master)](https://travis-ci.com/TASBE/SBOL-Annotator)
 # SBOL Interaction Annotation Tool
 ### Instructions for Use
 - Install [Jupyter](https://jupyter.org/install) and [Python 3](https://www.python.org/downloads/) (if not installed already) 
