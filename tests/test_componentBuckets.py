@@ -7,7 +7,7 @@ PARENTDIR = os.path.dirname(TESTSDIR)
 SRCDIR = os.path.join(PARENTDIR, 'src')
 sys.path.insert(0, SRCDIR)
 
-from componentbuckets import addPlasmidParts, resetModules, setNames # noqa
+from componentbuckets import addPlasmidParts, resetModules, setNames, createFunctionalComponents # noqa
 
 
 def createTestCD():
@@ -104,12 +104,80 @@ def test_settingNames():
 
     setNames(device_test_context, device_test, device, names)
 
-    assert device_test_context.name == 'lol'
+    assert device_test_context.name == 'bob'
     assert device_test.name == 'joe'
     assert device.name == 'john'
+
+
+def test_creatingFunctionalComponents():
+    class TestWidget:
+        def __init__(self, selectedList):
+            self.options = selectedList
+
+    doc = Document() # noqa
+    setHomespace('https://bu.edu/ben') # noqa
+    Config.setOption('sbol_compliant_uris', True) # noqa
+    Config.setOption('sbol_typed_uris', False) # noqa
+
+    testCD, subCD1, subCD2, subCD3 = createTestCD()
+    device_test_context, device_test, device = createModules()
+    doc.addComponentDefinition(testCD)
+    doc.addComponentDefinition(subCD1)
+    doc.addComponentDefinition(subCD2)
+    doc.addComponentDefinition(subCD3)
+
+    selectedNames = ['TestCD_subCD1', 'TestCD_subCD2', 'TestCD_subCD3']
+
+    dtcSelected = TestWidget([])
+    dtSelected = TestWidget([])
+    dSelected = TestWidget(selectedNames)
+
+    selectedLists = [dtcSelected, dtSelected, dSelected]
+    cdDisplayIDMap = {'TestCD_subCD1': subCD1,
+                      'TestCD_subCD2': subCD2,
+                      'TestCD_subCD3': subCD3}
+    modulesDictionary = {'Device-Test-Context': device_test_context,
+                         'Device-Test': device_test,
+                         'Device': device}
+    moduleNames = ['Device-Test-Context', 'Device-Test', 'Device']
+    fcDictionary = {}
+
+    createFunctionalComponents(doc,
+                               selectedLists,
+                               cdDisplayIDMap,
+                               modulesDictionary,
+                               moduleNames,
+                               fcDictionary)
+
+    assert len(device_test_context.functionalComponents) == 0
+    assert len(device_test.functionalComponents) == 0
+    assert len(device.functionalComponents) == 3
+
+    for fc in device.functionalComponents:
+        assert fc.displayId in selectedNames
 
 
 if __name__ == '__main__':
     test_addingPlasmidParts()
     test_resettingModules()
     test_settingNames()
+    test_creatingFunctionalComponents()
+
+
+# def createFunctionalComponents(doc,
+#                                selectedLists,
+#                                cdDisplayIDMap,
+#                                modulesDictionary,
+#                                moduleNames,
+#                                fcDictionary):
+
+#     for index, selectWidget in enumerate(selectedLists):
+#         currentModule = modulesDictionary[moduleNames[index]]
+
+#         for component in selectWidget.options:
+#             fc = currentModule.functionalComponents.create(component)
+#             fc.definition = cdDisplayIDMap[component]
+#             fc.direction = SBOL_DIRECTION_NONE # noqa
+
+#             cd = doc.getComponentDefinition(fc.definition)
+#             fcDictionary[component] = cd.name
