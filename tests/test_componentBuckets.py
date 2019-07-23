@@ -7,7 +7,7 @@ PARENTDIR = os.path.dirname(TESTSDIR)
 SRCDIR = os.path.join(PARENTDIR, 'src')
 sys.path.insert(0, SRCDIR)
 
-from componentsingle import addComponent, typesMap, rolesMap # noqa
+from componentbuckets import addPlasmidParts # noqa
 
 
 def createTestCD():
@@ -25,8 +25,55 @@ def createTestCD():
     sub2.definition = subCD2.identity
     sub3.definition = subCD3.identity
 
-    return cd
+    return (cd, subCD1, subCD2, subCD3)
+
+
+def createModules():
+    device_test_context = ModuleDefinition('context') # noqa
+    device_test = ModuleDefinition('device_test') # noqa
+    device = ModuleDefinition('device') # noqa
+
+    device_test_submod = device_test_context.modules.create('device_test')
+    device_test_submod.definition = device_test.identity
+
+    device_submod = device_test.modules.create('device')
+    device_submod.definition = device.identity
+
+    return (device_test_context, device_test, device)
 
 
 def test_addPlasmidParts():
-    return None
+    doc = Document() # noqa
+    setHomespace('https://bu.edu/ben') # noqa
+    Config.setOption('sbol_compliant_uris', True) # noqa
+    Config.setOption('sbol_typed_uris', False) # noqa
+
+    testCD, subCD1, subCD2, subCD3 = createTestCD()
+    device_test_context, device_test, device = createModules()
+    fc = device.functionalComponents.create('TestCD_sub1')
+    fc.definition = subCD1.identity
+    fc = device.functionalComponents.create('TestCD_sub2')
+    fc.definition = subCD2.identity
+
+    doc.addModuleDefinition(device_test)
+    doc.addModuleDefinition(device)
+
+    originalCDs = [testCD]
+    plasmidPartDictionary = {}
+    addedPlasmidParts = {}
+
+    addPlasmidParts(doc, originalCDs, device_test, device, plasmidPartDictionary, addedPlasmidParts) # noqa
+
+    cd = doc.componentDefinitions[0]
+    assert cd.displayId == 'TestCD__sub1__sub2'
+    assert len(cd.components) == 2
+
+    componentDisplayIds = [c.displayId for c in cd.components]
+    assert 'TestCD_sub1' in componentDisplayIds
+    assert 'TestCD_sub2' in componentDisplayIds
+    assert 'TestCD_sub3' not in componentDisplayIds
+
+    componentDefinitions = [c.definition for c in cd.components]
+    assert subCD1.identity in componentDefinitions
+    assert subCD2.identity in componentDefinitions
+    assert subCD3.identity not in componentDefinitions

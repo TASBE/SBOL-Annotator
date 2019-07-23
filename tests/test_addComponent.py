@@ -14,6 +14,8 @@ from componentsingle import addComponent, typesMap, rolesMap # noqa
 def test_successfulAdd():
     doc = Document() # noqa
     setHomespace('https://bu.edu/ben') # noqa
+    Config.setOption('sbol_compliant_uris', True) # noqa
+    Config.setOption('sbol_typed_uris', False) # noqa
     addedCDs = []
 
     componentName = 'araC'
@@ -32,6 +34,8 @@ def test_successfulAdd():
 def test_addSame():
     doc = Document() # noqa
     setHomespace('https://bu.edu/ben') # noqa
+    Config.setOption('sbol_compliant_uris', True) # noqa
+    Config.setOption('sbol_typed_uris', False) # noqa
     addedCDs = []
 
     componentName = 'araC'
@@ -47,6 +51,8 @@ def test_addSame():
 def test_illegalName():
     doc = Document() # noqa
     setHomespace('https://bu.edu/ben') # noqa
+    Config.setOption('sbol_compliant_uris', True) # noqa
+    Config.setOption('sbol_typed_uris', False) # noqa
     addedCDs = []
 
     componentName = '#$%^&*'
