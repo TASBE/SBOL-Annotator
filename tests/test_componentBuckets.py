@@ -162,22 +162,3 @@ if __name__ == '__main__':
     test_resettingModules()
     test_settingNames()
     test_creatingFunctionalComponents()
-
-
-# def createFunctionalComponents(doc,
-#                                selectedLists,
-#                                cdDisplayIDMap,
-#                                modulesDictionary,
-#                                moduleNames,
-#                                fcDictionary):
-
-#     for index, selectWidget in enumerate(selectedLists):
-#         currentModule = modulesDictionary[moduleNames[index]]
-
-#         for component in selectWidget.options:
-#             fc = currentModule.functionalComponents.create(component)
-#             fc.definition = cdDisplayIDMap[component]
-#             fc.direction = SBOL_DIRECTION_NONE # noqa
-
-#             cd = doc.getComponentDefinition(fc.definition)
-#             fcDictionary[component] = cd.name
