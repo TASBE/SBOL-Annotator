@@ -153,6 +153,7 @@ def test_creatingFunctionalComponents():
     assert len(device_test.functionalComponents) == 0
     assert len(device.functionalComponents) == 3
 
+    assert len(selectedNames) == len(device.functionalComponents)
     for fc in device.functionalComponents:
         assert fc.displayId in selectedNames
 
