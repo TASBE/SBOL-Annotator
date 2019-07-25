@@ -7,4 +7,7 @@
   - `requests`
   - `jupyter_contrib_nbextensions`
 - In the folder with the .ipynb file, run in command line:  
-    `jupyter notebook SBOLAnnotations.ipynb`
+    `jupyter notebook SBOLAnnotations.ipynb`  
+
+### Example Material
+The BBa_K808000.gb and BBa_K808000.xml are example GenBank and SBOL files respectively.
