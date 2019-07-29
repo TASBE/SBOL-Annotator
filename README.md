@@ -2,10 +2,17 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/TASBE/SBOL-Annotator/master)
 # SBOL Interaction Annotation Tool
 ### Instructions for Installation
-- Install [Jupyter](https://jupyter.org/install) and [Python 3](https://www.python.org/downloads/) (if not installed already) 
+- Install [Jupyter](https://jupyter.org/install) and [Python 3](https://www.python.org/downloads/) (if not installed already)  
+  
+  
+_The following instructions must be run in command line:_  
 - Install the required Python modules with:  
     `pip3 install -r requirements.txt`
-- In the folder with the .ipynb file, run in command line:  
+- Enable the extensions:  
+    `jupyter contrib nbextension install --user`  
+    `jupyter nbextension enable init_cell/main`  
+    `jupyter trust SBOLAnnotations.ipynb`
+- In the folder with the .ipynb file, run:  
     `jupyter notebook SBOLAnnotations.ipynb`
 ### Instructions for Use
 - Enable Initialization Cells (on initial install)  
