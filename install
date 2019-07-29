@@ -1,0 +1,13 @@
+# !/bin/bash
+# Installation Script
+
+# Installing Required Packages
+pip3 install -r requirements.txt
+
+# Installing and Enabling Widgets
+jupyter contrib nbextension install --user
+jupyter nbextension enable init_cell/main
+
+# Trusting Notebook
+jupyter trust SBOLAnnotations.ipynb
+
