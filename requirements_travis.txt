@@ -1,2 +1,3 @@
 pySBOL
 ipywidgets
+ipyupload
