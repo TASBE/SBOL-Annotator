@@ -7,7 +7,7 @@ There are two options to running the Jupyter Notebook: install it locally on you
   
   
 _The following instruction must be run in command line:_  
-Run `./install` to install the required modules and enable extensions.
+- Run `./install` to install the required modules and enable extensions.
 
 ### Instructions for Use
 - In the folder with the .ipynb file, run:  
