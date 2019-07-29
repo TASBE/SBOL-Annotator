@@ -10,6 +10,7 @@
     `jupyter notebook SBOLAnnotations.ipynb`
 ### Instructions for Use
 - Enable Initialization Cells  
+  
 ![](enableinitializationcells.gif)
 ### Example Material
 The BBa_K808000.gb and BBa_K808000.xml are example GenBank and SBOL files respectively.
