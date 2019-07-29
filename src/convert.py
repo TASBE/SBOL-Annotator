@@ -1,5 +1,12 @@
 from sbol import * # noqa
 import requests
+import os
+
+
+def cleanFiles(files):
+    for file in files:
+        if os.path.isfile(file):
+            os.remove(file)
 
 
 def getSBOLFiles(doc, originalCDs, cdDict, uploadDict, uriPrefix, version):
@@ -51,3 +58,6 @@ def getSBOLFiles(doc, originalCDs, cdDict, uploadDict, uriPrefix, version):
             if exists is False:
                 originalCDs.append(cd)
                 cdDict[cd.displayId] = []
+
+    cleanFiles(files)
+    cleanFiles([gbFileName[:-3] + '.xml' for gbFileName in files])
