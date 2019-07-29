@@ -6,7 +6,7 @@ There are two options to running the Jupyter Notebook: install it locally on you
 - Install [Jupyter](https://jupyter.org/install) and [Python 3](https://www.python.org/downloads/) (if not installed already)  
   
   
-_The following instructions must be run in command line:_  
+_The following instruction must be run in command line:_  
 Run `./install` to install the required modules and enable extensions.
 
 ### Instructions for Use
