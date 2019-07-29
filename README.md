@@ -9,7 +9,7 @@
 - In the folder with the .ipynb file, run in command line:  
     `jupyter notebook SBOLAnnotations.ipynb`
 ### Instructions for Use
-- Enable Initialization Cells  
+- Enable Initialization Cells (on initial install)  
   
 ![](enableinitializationcells.gif)
 ### Example Material
