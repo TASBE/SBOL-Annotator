@@ -14,7 +14,7 @@ def getSBOLFiles(doc, originalCDs, cdDict, uploadDict, uriPrefix, version):
     for key in uploadDict.keys():
         if key[-3:] == '.gb':
             file = open(key, 'w+')
-            file.write(uploadDict[key])
+            file.write(uploadDict[key]['content'].decode('utf-8'))
             file.close()
 
             files.append(key)
