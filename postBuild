@@ -1,5 +1,7 @@
 jupyter contrib nbextension install --user
 jupyter nbextension enable --py widgetsnbextension
 jupyter nbextension enable init_cell/main
+jupyter nbextension install --py --symlink --sys-prefix ipyupload
+jupyter nbextension enable --py --sys-prefix ipyupload
 
 jupyter trust SBOLAnnotations.ipynb

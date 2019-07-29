@@ -18,6 +18,8 @@ def getSBOLFiles(doc, originalCDs, cdDict, uploadDict, uriPrefix, version):
             file.close()
 
             files.append(key)
+        else:
+            raise Exception()
 
     for gbFileName in files:
         gbFile = open(gbFileName).read()
