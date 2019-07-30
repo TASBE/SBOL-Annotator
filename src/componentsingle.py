@@ -25,7 +25,7 @@ rolesMap = {'Miscellaneous': 'http://identifiers.org/so/SO:0000001',
             'Transcription Factor': 'http://identifiers.org/go/GO:0003700'}
 
 
-def addComponent(doc, addedCDs, componentName, componentType, componentRole, 
+def addComponent(doc, addedCDs, componentName, componentType, componentRole,
                  definitionURL):
     try:
         newComponentDefinition = ComponentDefinition(componentName, typesMap[componentType]) # noqa
