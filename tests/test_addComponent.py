@@ -21,8 +21,10 @@ def test_successfulAdd():
     componentName = 'araC'
     componentType = 'Protein'
     componentRole = ''
+    definitionURL = ''
 
-    addComponent(doc, addedCDs, componentName, componentType, componentRole)
+    addComponent(doc, addedCDs, componentName, componentType, componentRole,
+                 definitionURL)
 
     addedCD = doc.componentDefinitions[0]
 
@@ -41,9 +43,12 @@ def test_addSame():
     componentName = 'araC'
     componentType = 'Protein'
     componentRole = ''
+    definitionURL = ''
 
-    addComponent(doc, addedCDs, componentName, componentType, componentRole)
-    addComponent(doc, addedCDs, componentName, componentType, componentRole)
+    addComponent(doc, addedCDs, componentName, componentType, componentRole,
+                 definitionURL)
+    addComponent(doc, addedCDs, componentName, componentType, componentRole,
+                 definitionURL)
 
     assert len(doc.componentDefinitions) == 1
 
@@ -58,8 +63,10 @@ def test_illegalName():
     componentName = '#$%^&*'
     componentType = 'Protein'
     componentRole = ''
+    definitionURL = ''
 
-    addComponent(doc, addedCDs, componentName, componentType, componentRole)
+    addComponent(doc, addedCDs, componentName, componentType, componentRole,
+                 definitionURL)
 
     assert len(doc.componentDefinitions) == 0
 
