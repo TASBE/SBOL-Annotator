@@ -181,6 +181,13 @@ def addPlasmidParts(doc, originalCDs, device_test, device, plasmidPartDictionary
                 plasmidPartDictionary[fc.displayId] = c
                 fcList.append(fc.displayId)
 
+                for sa in plasmid.sequenceAnnotations:
+                    if sa.name == fc.displayId:
+                        newSA = dtCD.sequenceAnnotations.create(sa.displayId)  #add(sa.copy())
+                        newSA.name = sa.name
+                        for location in sa.locations:
+                            newSA.locations.add(location)
+
             try:
                 doc.addComponentDefinition(dtCD)
             except: # noqa
@@ -202,6 +209,20 @@ def addPlasmidParts(doc, originalCDs, device_test, device, plasmidPartDictionary
 
                 plasmidPartDictionary[fc.displayId] = c
                 fcList.append(fc.displayId)
+
+                for sa in plasmid.sequenceAnnotations:
+                    if sa.name == fc.displayId:
+                        # dCD.sequenceAnnotation.add(sa)
+                        newSA = dCD.sequenceAnnotations.create(sa.displayId)  #add(sa.copy())
+                        newSA.name = sa.name
+                        for location in sa.locations:
+                            newSA.locations.create('testing')
+                        # newSA = dCD.sequenceAnnotations.create(sa.displayId)  #add(sa.copy())
+                        # newSA.name = sa.name
+                        # for location in sa.locations:
+                        #     newRange = Range(location.disola)
+                        #     newLocation = newSA.locations.create(location.displayId)
+                        #     newLocation.name
 
             try:
                 doc.addComponentDefinition(dCD)
