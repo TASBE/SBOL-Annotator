@@ -25,12 +25,18 @@ rolesMap = {'Miscellaneous': 'http://identifiers.org/so/SO:0000001',
             'Transcription Factor': 'http://identifiers.org/go/GO:0003700'}
 
 
-def addComponent(doc, addedCDs, componentName, componentType, componentRole):
+def addComponent(doc, addedCDs, componentName, componentType, componentRole, 
+                 definitionURL):
     try:
         newComponentDefinition = ComponentDefinition(componentName, typesMap[componentType]) # noqa
         newComponentDefinition.name = componentName
         if componentRole != '':
             newComponentDefinition.roles = rolesMap[componentRole]
+        if definitionURL != '':
+            if componentType == 'Small Molecule':
+                newComponentDefinition.roles = definitionURL
+            else:
+                newComponentDefinition.wasDerivedFrom = definitionURL
     except Exception as e:
         print(e)
         return
