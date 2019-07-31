@@ -7,10 +7,13 @@ There are two options to running the Jupyter Notebook: install it locally on you
   
   
 _The following instruction must be run in command line:_  
-- Run `./install` to install the required modules and enable extensions.
+- Run `./install` to install the required modules and enable extensions
 
 ### Instructions for Use
-- In the folder with the .ipynb file, run:  
+1. In the folder with the .ipynb file, run:  
     `jupyter notebook SBOLAnnotations.ipynb`
+2. Follow the flow in the Jupyter notebook. Upload the GenBank files first, then follow fill out the subsequent sections. If you make a mistake, start over by reuploading the GenBank files. For now, there is no option to delete the interactions and components, but there will be in the future.
+3. Upload the annotated construct to SynBioHub.
+
 ### Example Material
 The BBa_K808000.gb and BBa_K808000.xml are example GenBank and SBOL files respectively.
