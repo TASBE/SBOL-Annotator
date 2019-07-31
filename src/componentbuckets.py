@@ -170,9 +170,17 @@ def addPlasmidParts(doc, originalCDs, device_test, device, plasmidPartDictionary
                 dList.append(fc)
                 dName += fc.displayId.replace(name + '_', '') + '__'
 
+        def comparison(self, other):
+            return self.precedes(other)
+
+        SequenceAnnotation.__lt__ = comparison # noqa
+
         if len(dtList) != 0:
             dtCD = ComponentDefinition(dtName[:-2]) # noqa
             fcList = []
+
+            CSADictionary = {}
+            saList = []
 
             for fc in dtList:
                 c = dtCD.components.create(fc.displayId)
@@ -180,6 +188,26 @@ def addPlasmidParts(doc, originalCDs, device_test, device, plasmidPartDictionary
 
                 plasmidPartDictionary[fc.displayId] = c
                 fcList.append(fc.displayId)
+
+                for sa in plasmid.sequenceAnnotations:
+                    if sa.name.replace(' ', '_') == fc.displayId:
+                        saList.append(sa)
+                        CSADictionary[sa.name] = c
+
+            saList.sort()
+
+            for index, sa in enumerate(saList):
+                if index == len(saList) - 1:
+                    break
+
+                nextComponent = saList[index + 1]
+
+                scName = str(sa.name.replace(' ', '_') + '__' +
+                             nextComponent.name.replace(' ', '_'))
+                sc = dtCD.sequenceConstraints.create(scName)
+                sc.subject = CSADictionary[sa.name].identity
+                sc.object = CSADictionary[nextComponent.name].identity
+                sc.restriction = SBOL_RESTRICTION_PRECEDES # noqa
 
             try:
                 doc.addComponentDefinition(dtCD)
@@ -196,12 +224,35 @@ def addPlasmidParts(doc, originalCDs, device_test, device, plasmidPartDictionary
             dCD = ComponentDefinition(dName[:-2]) # noqa
             fcList = []
 
+            CSADictionary = {}
+            saList = []
+
             for fc in dList:
                 c = dCD.components.create(fc.displayId)
                 c.definition = fc.definition
 
                 plasmidPartDictionary[fc.displayId] = c
                 fcList.append(fc.displayId)
+
+                for sa in plasmid.sequenceAnnotations:
+                    if sa.name.replace(' ', '_') == fc.displayId:
+                        saList.append(sa)
+                        CSADictionary[sa.name] = c
+
+            saList.sort()
+
+            for index, sa in enumerate(saList):
+                if index == len(saList) - 1:
+                    break
+
+                nextComponent = saList[index + 1]
+
+                scName = str(sa.name.replace(' ', '_') + '__' +
+                             nextComponent.name.replace(' ', '_'))
+                sc = dCD.sequenceConstraints.create(scName)
+                sc.subject = CSADictionary[sa.name].identity
+                sc.object = CSADictionary[nextComponent.name].identity
+                sc.restriction = SBOL_RESTRICTION_PRECEDES # noqa
 
             try:
                 doc.addComponentDefinition(dCD)
