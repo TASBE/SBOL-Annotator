@@ -57,14 +57,14 @@ def createHTMLString(cd, parentName=None):
             if typeComponent in typeDict:
                 htmlString += '<dd>-&nbsp' + typeDict[typeComponent] + '</dd>'
             else:
-                htmlString += '<dd>-&nbspOther</dd>'
+                htmlString += '<dd>-&nbsp' + typeComponent + '</dd>'
     if len(cd.roles) != 0:
         htmlString += '<dt><u>Role(s)</u>:</dt>'
         for role in cd.roles:
             if role in roleDict:
                 htmlString += '<dd>-&nbsp' + roleDict[role] + '</dd>'
             else:
-                htmlString += '<dd>-&nbspOther</dd>'
+                htmlString += '<dd>-&nbsp' + role + '</dd>'
     if len(cd.components) != 0:
         htmlString += '<dt><u>Sub-Components</u>:</dt>'
         for component in cd.components:
@@ -72,6 +72,9 @@ def createHTMLString(cd, parentName=None):
                 htmlString += '<dd>-&nbsp' + component.name.replace(parentName + '_', '') + '</dd>' # noqa
             else:
                 htmlString += '<dd>-&nbsp' + component.name + '</dd>'
+    if len(cd.wasDerivedFrom) != 0:
+        htmlString += '<dt><u>Definition URL</u>:</dt>'
+        htmlString += '<dd>-&nbsp' + cd.wasDerivedFrom[0] + '</dd>'
 
     return htmlString
 
