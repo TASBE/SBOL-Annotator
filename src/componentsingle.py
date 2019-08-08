@@ -1,4 +1,5 @@
 from sbol import * # noqa
+from urllib.parse import quote
 
 
 componentTypes = ['DNA', 'RNA', 'Protein', 'Small Molecule', 'Complex']
@@ -47,3 +48,31 @@ def addComponent(doc, addedCDs, componentName, componentType, componentRole,
         print('Component created!')
     except RuntimeError:
         print('Component name already exists.')
+
+
+def addComponentDictionary(doc,
+                           addedCDs,
+                           componentName,
+                           URI,
+                           componentType,
+                           definitionURL):
+    try:
+        cd = ComponentDefinition(quote(componentName).replace('%', '0x').replace('-', '0x2D')) # noqa
+        cd.name = componentName
+        cd.identity = URI
+        cd.persistentIdentity = URI
+
+        if componentType in typesMap:
+            cd.types = typesMap[componentType]
+
+        if definitionURL != '':
+            if componentType == 'Small Molecule':
+                cd.roles = definitionURL
+            else:
+                cd.wasDerivedFrom = definitionURL
+
+        doc.addComponentDefinition(cd)
+        addedCDs.append(cd)
+    except: # noqa
+        print('Component already exists!')
+        raise Exception()
