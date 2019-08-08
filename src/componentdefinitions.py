@@ -1,5 +1,6 @@
 from sbol import * # noqa
 import ipywidgets as widgets
+from urllib.parse import unquote
 
 
 typeDict = {'http://www.biopax.org/release/biopax-level3.owl#DnaRegion': 'DNA',
@@ -88,7 +89,8 @@ def createAccordionWidget(components, parentName=None):
         accordionChildren.append(htmlWidget)
 
         if parentName is None:
-            accordion.set_title(index, cd.displayId)
+            name = unquote(cd.displayId.replace('0x', '%'))
+            accordion.set_title(index, name)
         else:
             accordion.set_title(index, cd.displayId.replace(parentName + '_', '')) # noqa
         htmlString = createHTMLString(cd, parentName)

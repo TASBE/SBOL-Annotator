@@ -29,8 +29,8 @@ def createDTCList(doc, originalCDs, addedCDs, cdDisplayIDMap):
             dtcList.append(c.name.replace(' ', '_'))
 
     for cd in addedCDs:
-        cdDisplayIDMap[cd.displayId] = cd
-        dtcList.append(cd.displayId)
+        cdDisplayIDMap[cd.name] = cd
+        dtcList.append(cd.name)
 
     dtcList.sort()
     return dtcList
