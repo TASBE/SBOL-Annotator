@@ -5,6 +5,3 @@
 # Testing GenBank and SBOL XML Files
 *.gb
 *.xml
-
-# Authorization credentials
-*.pickle
