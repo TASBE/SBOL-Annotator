@@ -4,3 +4,4 @@ ipywidgets
 ipyupload
 jupyter_contrib_nbextensions
 urllib3
+google-api-python-client

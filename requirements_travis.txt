@@ -2,3 +2,4 @@ pySBOL
 ipywidgets
 ipyupload
 urllib3
+google-api-python-client
