@@ -3,3 +3,4 @@ requests
 ipywidgets
 ipyupload
 jupyter_contrib_nbextensions
+urllib3

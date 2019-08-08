@@ -1,3 +1,4 @@
 pySBOL
 ipywidgets
 ipyupload
+urllib3
